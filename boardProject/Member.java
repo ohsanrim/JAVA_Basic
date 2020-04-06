@@ -1,10 +1,10 @@
 package boardProject;
 
 public class Member {
-int id;
-String userName;
-String password;
-String nickName;
+ public int id;
+ public String userName;
+ public String password;
+ public String nickName;
 
 
 }

@@ -1,46 +1,38 @@
 package boardProject;
 
 import java.util.Scanner;
-
+import util.MyArray;
 import util.MyScanner;
 
 public class BoardEx2 {
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Board[] boardArr = new Board[0];
-        for (int i = 0; i < boardArr.length; i++) {
-            boardArr[i] = new Board();
-        }
-        while (true) {
-            System.out.println("================비트게시판=================");
-            System.out.println("1.글 목록 2. 새로작성 3. 종료");
-            System.out.println(">");
-            int userChoice = MyScanner.nextInt(sc);
-            if (userChoice == 1) {
-                BoardUtil.list(boardArr);
-                if (boardArr.length > 0) {
-                    System.out.println("1.글 개별보기 2. 글삭제 3. 뒤로가기");
-                    System.out.println(">");
-                    userChoice = MyScanner.nextInt(sc);
-                    if (userChoice == 1) {
-                        BoardUtil.showOne(boardArr, sc);
-                    } else if(userChoice==2) {
-                       BoardUtil.boardRemove(boardArr, sc);
-                    }
-                }
+        Reply[] replyArr = new Reply[0];
+        BoardReplyWrapper wrapper = new BoardReplyWrapper();
+        wrapper.boardArr = boardArr;
+        wrapper.replyArr=replyArr;
+        Member member = new Member();
+        member.nickName = "운영자";
+        member.userName = "admin";
+        member.password = "111";
+        member.id = 1;
 
-            } else if (userChoice == 2) {
-
-                boardArr = BoardUtil.write(boardArr, sc);
-
-            } else if (userChoice == 3) {
-                System.out.println("사용해주셔서 갑사합니다!");
-                break;
-            }
-        }
-
+        Board b = new Board();
+        
+        b.id = 1;
+        b.title="테스트 제목";
+        b.content="테스트 내용";
+        b.writerId=1;
+        wrapper.boardArr=MyArray.add(boardArr, b);
+//        boardArr = MyArray.add(boardArr,b);
+        
+        Member[] memberArr = new Member[0];
+        memberArr = MyArray.add(memberArr, member);
+        
+        MemberUtil.index(sc, memberArr, wrapper);
+//		Member login = MemberUtil,logInPrint(sc, MemberArr);
+        
         sc.close();
     }
-
 }
